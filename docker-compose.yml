@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:14
+    container_name: churn_db
+    restart: always
+    environment:
+      POSTGRES_USER: telecom
+      POSTGRES_PASSWORD: telecom123
+      POSTGRES_DB: churn
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: churn_backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://telecom:telecom123@db:5432/churn
+    ports:
+      - "8000:8000"
+
+  model_service:
+    build: ./model_service
+    container_name: churn_model
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "8001:8001"
+
+  streamlit:
+    build: ./streamlit_app
+    container_name: churn_streamlit
+    restart: always
+    depends_on:
+      - backend
+      - model_service
+    ports:
+      - "8501:8501"
+
+volumes:
+  db_data:
