@@ -1,0 +1,10 @@
+{
+  "name": "telecom-churn-platform",
+  "private": true,
+  "scripts": {
+    "install": "npm --prefix frontend ci",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend run start",
+    "dev": "npm --prefix frontend run dev"
+  }
+}
