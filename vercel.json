@@ -4,6 +4,6 @@
     { "src": "frontend/next.config.ts", "use": "@vercel/next" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "frontend/$1" }
+    { "src": "/(.*)", "dest": "frontend/" }
   ]
 }

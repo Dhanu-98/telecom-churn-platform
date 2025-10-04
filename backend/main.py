@@ -1,11 +1,6 @@
 from fastapi import FastAPI
+from backend.routers import predict
 
-app = FastAPI()
+app = FastAPI(title="Telecom Churn Prediction API")
 
-@app.get("/")
-def read_root():
-    return {"message": "Telecom Churn Backend is running 🚀"}
-
-@app.get("/health")
-def health_check():
-    return {"status": "ok"}
+app.include_router(predict.router, prefix="/api")
